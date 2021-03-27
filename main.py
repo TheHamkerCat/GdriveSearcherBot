@@ -24,7 +24,6 @@ async def help_command(_, message):
     await message.reply_text("/search [Query]")
 
 
-
 @app.on_message(filters.command("search") & ~filters.edited & filters.chat(SUDO_CHATS_ID))
 async def search(_, message):
     global i, m, data
@@ -39,12 +38,12 @@ async def search(_, message):
             text += f"""
 📄  [{data[count]['name']}
 **Size:** __{data[count]['size']}__
-[Drive Link]({data[count]['url']}) | [Index Link]({data[count]['url']})\n"""
+**[Drive Link]({data[count]['drive_url']})** | **[Index Link]({data[count]['url']})**\n"""
 
         else:
             text += f"""
 📂  __{data[count]['name']}__
-[Drive Link]({data[count]['url']}) | [Index Link]({data[count]['url']})\n"""
+**[Drive Link]({data[count]['drive_url']})** | **[Index Link]({data[count]['url']})**\n"""
 
     keyboard = InlineKeyboardMarkup(
         [
@@ -52,11 +51,11 @@ async def search(_, message):
                 InlineKeyboardButton(
                     text="<<   Previous",
                     callback_data="previous"
-                    ),
+                ),
                 InlineKeyboardButton(
                     text="Next   >>",
                     callback_data="next"
-                    )
+                )
             ]
         ]
     )
@@ -81,12 +80,12 @@ async def previous_callbacc(_, CallbackQuery):
             text += f"""
 📄  [{data[count]['name']}
 **Size:** __{data[count]['size']}__
-[Drive Link]({data[count]['url']}) | [Index Link]({data[count]['url']})\n"""
+**[Drive Link]({data[count]['drive_url']})** | **[Index Link]({data[count]['url']})**\n"""
 
         else:
             text += f"""
 📂  __{data[count]['name']}__
-[Drive Link]({data[count]['url']}) | [Index Link]({data[count]['url']})\n"""
+**[Drive Link]({data[count]['drive_url']})** | **[Index Link]({data[count]['url']})**\n"""
 
     keyboard = InlineKeyboardMarkup(
         [
@@ -94,11 +93,11 @@ async def previous_callbacc(_, CallbackQuery):
                 InlineKeyboardButton(
                     text="<<   Previous",
                     callback_data="previous"
-                    ),
+                ),
                 InlineKeyboardButton(
                     text="Next   >>",
                     callback_data="next"
-                    )
+                )
             ]
         ]
     )
@@ -117,12 +116,12 @@ async def next_callbacc(_, CallbackQuery):
             text += f"""
 📄  [{data[count]['name']}
 **Size:** __{data[count]['size']}__
-[Drive Link]({data[count]['url']}) | [Index Link]({data[count]['url']})\n"""
+**[Drive Link]({data[count]['drive_url']})** | **[Index Link]({data[count]['url']})**\n"""
 
         else:
             text += f"""
 📂  __{data[count]['name']}__
-[Drive Link]({data[count]['url']}) | [Index Link]({data[count]['url']})\n"""
+**[Drive Link]({data[count]['drive_url']})** | **[Index Link]({data[count]['url']})**\n"""
 
     keyboard = InlineKeyboardMarkup(
         [
@@ -130,11 +129,11 @@ async def next_callbacc(_, CallbackQuery):
                 InlineKeyboardButton(
                     text="<<   Previous",
                     callback_data="previous"
-                    ),
+                ),
                 InlineKeyboardButton(
                     text="Next   >>",
                     callback_data="next"
-                    )
+                )
             ]
         ]
     )

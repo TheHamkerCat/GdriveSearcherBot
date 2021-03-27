@@ -74,13 +74,27 @@ class GoogleDriveHelper:
                     url_path = quote(f"{file['name']}")
                     url = f'{INDEX_URL[INDEX]}/{url_path}/'
                     data.append(
-                        {"type": "folder", "name": file['name'], "size": "none", "url": url})
+                            {
+                                "type": "folder",
+                                "name": file['name'],
+                                "size": "none",
+                                "url": url,
+                                "drive_url": f"https://drive.google.com/drive/folders/{file['id']}"
+                                }
+                            )
                 else:
                     size = self.get_readable_file_size(file.get('size'))
                     url_path = quote(f'{file.get("name")}')
                     url = f'{INDEX_URL[INDEX]}/{url_path}'
                     data.append(
-                        {"type": "file", "name": file['name'], "size": size, "url": url})
+                        {
+                            "type": "file",
+                            "name": file['name'],
+                            "size": size,
+                            "url": url,
+                            "drive_url": f"https://drive.google.com/uc?id={file['id']}&export=download"
+                            }
+                        )
         if len(data) == 0:
             return {"error": "Found Literally Nothing"}
         return data
