@@ -4,21 +4,33 @@
 
 [![Python](http://forthebadge.com/images/badges/made-with-python.svg)](https://python.org)
 
-<img src="https://i.imgur.com/MxrswfJ.png" width="400" align="right">
+<img src="https://i.imgur.com/MxrswfJ.png" width="370" align="right">
 
 
 ### Installation
 
-1. Save Credentials.json in main folder.
-2.
+##### Getting Google OAuth API credential file
+- Visit the [Google Cloud Console](https://console.developers.google.com/apis/credentials)
+- Go to the OAuth Consent tab, fill it, and save.
+- Go to the Credentials tab and click Create Credentials -> OAuth Client ID
+- Choose Desktop and Create.
+- Use the download button to download your credentials.
+- Move that file to the root of this bot, and rename it to credentials.json
+- Visit [Google API page](https://console.developers.google.com/apis/library)
+- Search for Drive and enable it if it is disabled
+- Run these commands
+
 ```sh
 $ pip3 install -U pip
 $ pip3 install -U -r requirements.txt
 $ python3 generate_drive_token.py
 $ cp sample_config.py config.py
 ```
-3. Edit **config.py** with your own values
-4. Run  ```$ python3 main.py```  to start the bot.
+- Edit **config.py** with your own values
+- Run  ```$ python3 main.py```  to start the bot.
 
 ### Credits
 [@SVR666](https://github.com/SVR666) For Drive module.
+
+### Notes
+- Join [PatheticProgrammers](https://t.me/patheticprogrammers) For Help.
