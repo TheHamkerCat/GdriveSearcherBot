@@ -30,6 +30,9 @@ async def search(_, message):
     m = await message.reply_text("**Searching....**")
     query = message.text.split(None, 1)[1]
     data = drive.drive_list(query)
+    if len(data) < RESULTS_COUNT:
+        await message.reply_text("Not enough results.")
+        return
     i = 0
     i = i + RESULTS_COUNT
     text = ""
@@ -75,17 +78,20 @@ async def previous_callbacc(_, CallbackQuery):
     i -= RESULTS_COUNT
     text = ""
 
-    for count in range(ii, i):
-        if data[count]['type'] == "file":
-            text += f"""
+    try:
+        for count in range(ii, i):
+            if data[count]['type'] == "file":
+                text += f"""
 📄  [{data[count]['name']}
 **Size:** __{data[count]['size']}__
 **[Drive Link]({data[count]['drive_url']})** | **[Index Link]({data[count]['url']})**\n"""
 
-        else:
-            text += f"""
+            else:
+                text += f"""
 📂  __{data[count]['name']}__
 **[Drive Link]({data[count]['drive_url']})** | **[Index Link]({data[count]['url']})**\n"""
+    except IndexError:
+        await CallbackQuery.answer("Not enough results.", show_alert=True)
 
     keyboard = InlineKeyboardMarkup(
         [
@@ -111,17 +117,20 @@ async def next_callbacc(_, CallbackQuery):
     i += RESULTS_COUNT
     text = ""
 
-    for count in range(ii, i):
-        if data[count]['type'] == "file":
-            text += f"""
+    try:
+        for count in range(ii, i):
+            if data[count]['type'] == "file":
+                text += f"""
 📄  [{data[count]['name']}
 **Size:** __{data[count]['size']}__
 **[Drive Link]({data[count]['drive_url']})** | **[Index Link]({data[count]['url']})**\n"""
 
-        else:
-            text += f"""
+            else:
+                text += f"""
 📂  __{data[count]['name']}__
 **[Drive Link]({data[count]['drive_url']})** | **[Index Link]({data[count]['url']})**\n"""
+    except IndexError:
+        await CallbackQuery.answer("Not enough results.", show_alert=True)
 
     keyboard = InlineKeyboardMarkup(
         [
