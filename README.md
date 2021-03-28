@@ -29,6 +29,13 @@ $ cp sample_config.py config.py
 - Edit **config.py** with your own values
 - Run  ```$ python3 main.py```  to start the bot.
 
+### Docker Installation
+```sh
+$ git clone https://github.com/thehamkercat/GdriveSearcherBot
+$ cd GdriveSearcherBot
+$ sudo docker build . -t GdriveSearcherBot
+$ sudo docker run GdriveSearcherBot
+```
 ### Credits
 [@SVR666](https://github.com/SVR666) For Drive module.
 
