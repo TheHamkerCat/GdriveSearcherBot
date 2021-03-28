@@ -1,5 +1,5 @@
 BOT_TOKEN = "1629027959:AAEaTw4s2qaAL3mYP3fQRnE"
-RESULT_COUNT = 4  # NOTE Number of results to show, 4 is better
+RESULTS_COUNT = 4  # NOTE Number of results to show, 4 is better
 SUDO_CHATS_ID = [-1001485393652, -1005456463651]
 
 
