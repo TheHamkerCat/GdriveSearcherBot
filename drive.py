@@ -52,7 +52,8 @@ class GoogleDriveHelper:
         return build('drive', 'v3', credentials=credentials, cache_discovery=False)
 
     def drive_query(self, parent_id, fileName):
-        query = f"'{parent_id}' in parents and (name contains '{fileName}')"
+        gquery = " and ".join([f"name contains '{x}'" for x in fileName.split()])
+        query = f"'{parent_id}' in parents and ({gquery})"
         response = self.__service.files().list(supportsTeamDrives=True,
                                                includeTeamDriveItems=True,
                                                q=query,
