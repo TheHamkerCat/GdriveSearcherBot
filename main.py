@@ -30,14 +30,12 @@ async def search(_, message):
     m = await message.reply_text("**Searching....**")
     query = message.text.split(None, 1)[1]
     data = drive.drive_list(query)
-    if len(data) < RESULTS_COUNT:
-        await message.reply_text("Not enough results.")
-        return
+    
     results = len(data)
     i = 0
     i = i + RESULTS_COUNT
     text = f"**Total Results:** __{results}__\n"
-    for count in range(i):
+    for count in range(min(i, results)):
         if data[count]['type'] == "file":
             text += f"""
 📄  [{data[count]['name']}
@@ -48,22 +46,24 @@ async def search(_, message):
             text += f"""
 📂  __{data[count]['name']}__
 **[Drive Link]({data[count]['drive_url']})** | **[Index Link]({data[count]['url']})**\n"""
-
-    keyboard = InlineKeyboardMarkup(
-        [
+    if len(data) > RESULTS_COUNT:
+        keyboard = InlineKeyboardMarkup(
             [
-                InlineKeyboardButton(
-                    text="<<   Previous",
-                    callback_data="previous"
-                ),
-                InlineKeyboardButton(
-                    text="Next   >>",
-                    callback_data="next"
-                )
+                [
+                    InlineKeyboardButton(
+                        text="<<   Previous",
+                        callback_data="previous"
+                    ),
+                    InlineKeyboardButton(
+                        text="Next   >>",
+                        callback_data="next"
+                    )
+                ]
             ]
-        ]
-    )
-    await m.edit(text=text, reply_markup=keyboard)
+        )
+        await m.edit(text=text, reply_markup=keyboard)
+        return
+    await m.edit(text=text)
 
 
 @app.on_callback_query(filters.regex("previous"))
