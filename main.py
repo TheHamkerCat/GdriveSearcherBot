@@ -34,6 +34,11 @@ async def search(_, message):
     results = len(data)
     i = 0
     i = i + RESULTS_COUNT
+
+    if results == 0:
+        await m.edit(text="Found Literally Nothing.")
+        return
+
     text = f"**Total Results:** __{results}__\n"
     for count in range(min(i, results)):
         if data[count]['type'] == "file":

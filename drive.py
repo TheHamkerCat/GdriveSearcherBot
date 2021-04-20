@@ -96,8 +96,8 @@ class GoogleDriveHelper:
                             "drive_url": f"https://drive.google.com/uc?id={file['id']}&export=download"
                             }
                         )
-        if len(data) == 0:
-            return {"error": "Found Literally Nothing"}
+        # if len(data) == 0:
+        #     return {"error": "Found Literally Nothing"}
         return data
 
 drive = GoogleDriveHelper(None)
