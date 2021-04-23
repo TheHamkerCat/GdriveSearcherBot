@@ -67,9 +67,15 @@ async def search(_, message):
                 ]
             ]
         )
-        await m.edit(text=text, reply_markup=keyboard)
+        try:
+            await m.edit(text=text, reply_markup=keyboard)
+        except MessageEmpty:
+            pass
         return
-    await m.edit(text=text)
+    try:
+        await m.edit(text=text)
+    except MessageEmpty:
+        pass
 
 
 @app.on_callback_query(filters.regex("previous"))
@@ -114,7 +120,10 @@ async def previous_callbacc(_, CallbackQuery):
             ]
         ]
     )
-    await m.edit(text=text, reply_markup=keyboard)
+    try:
+        await m.edit(text=text, reply_markup=keyboard)
+    except MessageEmpty:
+        pass
 
 
 @app.on_callback_query(filters.regex("next"))
