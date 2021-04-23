@@ -1,6 +1,6 @@
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-from pyrogram.errors.exceptions.bad_request_400 import MessageEmpty
+from pyrogram.errors.exceptions.bad_request_400 import MessageEmpty, MessageNotModified
 from config import BOT_TOKEN, RESULTS_COUNT, SUDO_CHATS_ID
 from drive import drive
 from requests import get as g
@@ -69,12 +69,12 @@ async def search(_, message):
         )
         try:
             await m.edit(text=text, reply_markup=keyboard)
-        except MessageEmpty:
+        except (MessageEmpty, MessageNotModified):
             pass
         return
     try:
         await m.edit(text=text)
-    except MessageEmpty:
+    except (MessageEmpty, MessageNotModified):
         pass
 
 
@@ -122,7 +122,7 @@ async def previous_callbacc(_, CallbackQuery):
     )
     try:
         await m.edit(text=text, reply_markup=keyboard)
-    except MessageEmpty:
+    except (MessageEmpty, MessageNotModified):
         pass
 
 
@@ -164,7 +164,7 @@ async def next_callbacc(_, CallbackQuery):
     )
     try:
         await m.edit(text=text, reply_markup=keyboard)
-    except MessageEmpty:
+    except (MessageEmpty, MessageNotModified):
         pass
 
 
