@@ -28,11 +28,10 @@ async def help_command(_, message):
 @app.on_message(filters.command("search") & ~filters.edited & filters.chat(SUDO_CHATS_ID))
 async def search(_, message):
     global i, m, data
-    try:
-        query = message.text.split(' ',maxsplit=1)[1]
-    except:
-        await message.reply_text('/seach Filename')
-        return
+    if len(message.command) < 2:
+      await message.reply_text('/seach Filename')
+      return
+    query = message.text.split(' ',maxsplit=1)[1]
     m = await message.reply_text("**Searching....**")
     data = drive.drive_list(query)
     
