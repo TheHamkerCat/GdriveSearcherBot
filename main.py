@@ -28,8 +28,11 @@ async def help_command(_, message):
 @app.on_message(filters.command("search") & ~filters.edited & filters.chat(SUDO_CHATS_ID))
 async def search(_, message):
     global i, m, data
+    if len(message.command) < 2:
+      await message.reply_text('/seach Filename')
+      return
+    query = message.text.split(' ',maxsplit=1)[1]
     m = await message.reply_text("**Searching....**")
-    query = message.text.split(None, 1)[1]
     data = drive.drive_list(query)
     
     results = len(data)
@@ -68,12 +71,12 @@ async def search(_, message):
             ]
         )
         try:
-            await m.edit(text=text, reply_markup=keyboard)
+            await m.edit(text=text, disable_web_page_preview=True, reply_markup=keyboard)
         except (MessageEmpty, MessageNotModified):
             pass
         return
     try:
-        await m.edit(text=text)
+        await m.edit(text=text, disable_web_page_preview=True)
     except (MessageEmpty, MessageNotModified):
         pass
 
@@ -121,7 +124,7 @@ async def previous_callbacc(_, CallbackQuery):
         ]
     )
     try:
-        await m.edit(text=text, reply_markup=keyboard)
+        await m.edit(text=text, disable_web_page_preview=True, reply_markup=keyboard)
     except (MessageEmpty, MessageNotModified):
         pass
 
@@ -163,7 +166,7 @@ async def next_callbacc(_, CallbackQuery):
         ]
     )
     try:
-        await m.edit(text=text, reply_markup=keyboard)
+        await m.edit(text=text, disable_web_page_preview=True, reply_markup=keyboard)
     except (MessageEmpty, MessageNotModified):
         pass
 
