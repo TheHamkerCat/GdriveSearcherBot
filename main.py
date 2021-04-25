@@ -72,12 +72,12 @@ async def search(_, message):
             ]
         )
         try:
-            await m.edit(text=text, reply_markup=keyboard)
+            await m.edit(text=text, disable_web_page_preview=True, reply_markup=keyboard)
         except (MessageEmpty, MessageNotModified):
             pass
         return
     try:
-        await m.edit(text=text)
+        await m.edit(text=text, disable_web_page_preview=True)
     except (MessageEmpty, MessageNotModified):
         pass
 
@@ -125,7 +125,7 @@ async def previous_callbacc(_, CallbackQuery):
         ]
     )
     try:
-        await m.edit(text=text, reply_markup=keyboard)
+        await m.edit(text=text, disable_web_page_preview=True, reply_markup=keyboard)
     except (MessageEmpty, MessageNotModified):
         pass
 
@@ -167,7 +167,7 @@ async def next_callbacc(_, CallbackQuery):
         ]
     )
     try:
-        await m.edit(text=text, reply_markup=keyboard)
+        await m.edit(text=text, disable_web_page_preview=True, reply_markup=keyboard)
     except (MessageEmpty, MessageNotModified):
         pass
 
