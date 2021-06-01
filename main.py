@@ -17,7 +17,7 @@ keyboard = None
 data = None
 
 
-@app.on_message(filters.command(["start", f"start@{botname}"], prefixes = "/") & filters.chat(SUDO_CHATS_ID))
+@app.on_message(filters.command(["start", f"start@{botname}"], prefixes = "/") & ~filters.edited & filters.chat(SUDO_CHATS_ID))
 async def start_command(_, message):
     await message.reply_text("What did you expect to happen? Try /help")
 
