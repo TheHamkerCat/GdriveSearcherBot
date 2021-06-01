@@ -7,6 +7,8 @@ from requests import get as g
 
 app = Client(":memory:", bot_token=BOT_TOKEN, api_id=6,
              api_hash="eb06d4abfb49dc3eeb1aeb98ae0f581e")
+with app:
+    botname = app.get_me().username
 
 i = 0
 ii = 0
@@ -15,17 +17,17 @@ keyboard = None
 data = None
 
 
-@app.on_message(filters.command("start") & ~filters.edited & filters.chat(SUDO_CHATS_ID))
+@app.on_message(filters.command(["start", f"start@{botname}"], prefixes = "/") & filters.chat(SUDO_CHATS_ID))
 async def start_command(_, message):
     await message.reply_text("What did you expect to happen? Try /help")
 
 
-@app.on_message(filters.command("help") & ~filters.edited)
+@app.on_message(filters.command(["help", f"help@{botname}"], prefixes = "/") & ~filters.edited)
 async def help_command(_, message):
     await message.reply_text("/search [Query]")
 
 
-@app.on_message(filters.command("search") & ~filters.edited & filters.chat(SUDO_CHATS_ID))
+@app.on_message(filters.command(["search", f"search@{botname}"], prefixes = "/") & ~filters.edited & filters.chat(SUDO_CHATS_ID))
 async def search(_, message):
     global i, m, data
     if len(message.command) < 2:
